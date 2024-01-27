@@ -34,7 +34,7 @@ exports.getAllCart = async (req, res) => {
       title: e.cartItem.title,
       quantity: e.quantity,
       totalAmount: e.quantity * e.cartItem.price,
-      totalSum: totalAmountSum
+      
     }));
     
     if(allCartItems.length === 0){
