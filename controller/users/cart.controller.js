@@ -24,7 +24,7 @@ exports.addCart = async (req, res) => {
 // localhost:8000/api/v1/users/cart/my-cart
 exports.getAllCart = async (req, res) => {
   try {
-    const totalAmountSum = allCartItems.reduce((sum, item) => sum + item.totalAmount, 0);
+    let totalAmountSum = allCartItems.reduce((sum, item) => sum + item.totalAmount, 0);
     let cartProduct = await cartService.getAllCarts({user: req.user._id,isDelete: false});
     let allCartItems = cartProduct.map((e) => ({
       _id:e._id,
