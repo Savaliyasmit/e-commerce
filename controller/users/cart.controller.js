@@ -33,8 +33,11 @@ exports.getAllCart = async (req, res) => {
       price: e.cartItem.price,
       title: e.cartItem.title,
       quantity: e.quantity,
-      totalAmount: e.quantity * e.cartItem.price
+      totalAmount: e.quantity * e.cartItem.price,
+      totalSum: totalAmountSum
     }));
+    const totalAmountSum = allCartItems.reduce((sum, item) => sum + item.totalAmount, 0);
+
     if(allCartItems.length === 0){
       return res.json({ message: "your cart was empty" });
     }
