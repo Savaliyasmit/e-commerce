@@ -181,7 +181,7 @@ exports.getSpacificProduct = async (req,res) =>{
 exports.deleteProfile = async(req,res)=>{
   try {
     let userId = await userService.userUpdate({_id:req.user._id,isDelete: false},{isDelete:true})
-    if(!userId || userId.isDelete){
+    if(!userId){
       return res.json({message:"your profile not found"})
     }
     res.json({message:"your profile was delete"})
