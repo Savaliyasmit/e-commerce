@@ -10,7 +10,7 @@ exports.signupUser = async (req, res) => {
   try {
     let user = await userService.getUser({ email: req.body.email, isDelete: false });
     if (user) {
-      return res.status(400).json({ meassage: "user already exists..." });
+      return res.status(400).json({ message: "user already exists..." });
     }
      let filePath;
     if (req.file) {
@@ -39,11 +39,11 @@ exports.loginUser = async (req, res) => {
   try {
     let user = await userService.getUser({ email: req.body.email, isDelete: false });
     if (!user) {
-      return res.json({ meassage: "user not found..." });
+      return res.json({ message: "user not found..." });
     }
     let checkPassword = await bcrypt.compare(req.body.password, user.password);
     if (!checkPassword) {
-      return res.json({ meassage: "password is not match..." });
+      return res.json({ message: "password is not match..." });
     }
     let payload = {
       userId: user._id,
@@ -73,7 +73,7 @@ exports.getProfile = async (req, res) => {
   try {
     let user = await userService.getUser({_id:req.user._id,isDelete: false});
     if (!user) {
-      return res.json({ meassage: "user not found..." });
+      return res.json({ message: "user not found..." });
     }
     res.json({user,message:"your profile"})
   } catch (error) {
@@ -92,7 +92,7 @@ exports.updateProfile = async (req, res) => {
     let userUpdate = await userService.userUpdate({_id:req.user._id,isDelete: false},
       {profileImage:filePath,...req.body})
    if(!userUpdate){
-    return res.json({ meassage: "user not found..." });
+    return res.json({ message: "user not found..." });
    }
     res.json({user: userUpdate,massage: "your profile update sucessfully..."});
   } catch (error) {
