@@ -39,18 +39,18 @@ exports.loginUser = async (req, res) => {
   try {
     let user = await userService.getUser({ email: req.body.email, isDelete: false });
     if (!user) {
-      return res.json({ message: "user not found..." });
+      return res.status(404).json({ message: "user not found..." });
     }
     let checkPassword = await bcrypt.compare(req.body.password, user.password);
     if (!checkPassword) {
-      return res.json({ message: "password is not match..." });
+      return res.status(400).json({ message: "password is not match..." });
     }
     let payload = {
       userId: user._id,
     };
     let token = jwt.sign(payload, process.env.SECRET_KEY);
     
-    res.json({ user, Token: token, message: "your login sucessfully" });
+    res.status(200).json({ user, Token: token, message: "your login sucessfully" });
   } catch (error) {
     console.log(error);
     res.status(500).json("Internal Server Error..");
@@ -60,7 +60,7 @@ exports.loginUser = async (req, res) => {
 // localhost:8000/api/v1/users/user/logout
 exports.logout = async (req,res)=>{
   try {
-    res.json({ message: "Logout successful go to localhost:8000/api/v1/users/user/login" });
+    res.status(200).json({ message: "Logout successful go to localhost:8000/api/v1/users/user/login" });
    
   } catch (error) {
     console.log(error);
@@ -73,9 +73,9 @@ exports.getProfile = async (req, res) => {
   try {
     let user = await userService.getUser({_id:req.user._id,isDelete: false});
     if (!user) {
-      return res.json({ message: "user not found..." });
+      return res.status(404).json({ message: "user not found..." });
     }
-    res.json({user,message:"your profile"})
+    res.status(200).json({user,message:"your profile"})
   } catch (error) {
     console.log(error);
     res.status(500).json("Internal Server Error..");
@@ -92,7 +92,7 @@ exports.updateProfile = async (req, res) => {
     let userUpdate = await userService.userUpdate({_id:req.user._id,isDelete: false},
       {profileImage:filePath,...req.body})
    if(!userUpdate){
-    return res.json({ message: "user not found..." });
+    return res.status(404).json({ message: "user not found..." });
    }
     res.json({user: userUpdate,massage: "your profile update sucessfully..."});
   } catch (error) {
