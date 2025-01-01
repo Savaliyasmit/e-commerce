@@ -10,7 +10,7 @@ exports.signupUser = async (req, res) => {
   try {
     let user = await userService.getUser({ email: req.body.email, isDelete: false });
     if (user) {
-      return res.json({ meassage: "user already exists..." });
+      return res.status(400).json({ meassage: "user already exists..." });
     }
      let filePath;
     if (req.file) {
