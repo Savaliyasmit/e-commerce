@@ -17,7 +17,7 @@ exports.signupUser = async (req, res) => {
       filePath = `${req.file.path.replace(/\\/g, "/")}`;
     }
     if (!filePath) {
-      return res.status(400).json({ user , message: "Profile image is required." });
+      return res.status(401).json({ user , message: "Profile image is required." });
     }
 
     let hashPassword = await bcrypt.hash(req.body.password, 10);
@@ -43,7 +43,7 @@ exports.loginUser = async (req, res) => {
     }
     let checkPassword = await bcrypt.compare(req.body.password, user.password);
     if (!checkPassword) {
-      return res.status(400).json({ user:null ,message:"password is not match..." });
+      return res.status(401).json({ user:null ,message:"password is not match..." });
     }
     let payload = {
       userId: user._id,
