@@ -39,11 +39,11 @@ exports.loginUser = async (req, res) => {
   try {
     let user = await userService.getUser({ email: req.body.email, isDelete: false });
     if (!user) {
-      return res.status(404).json({ user ,message: "user not found..." });
+      return res.status(404).json({ user:{},message: "user not found..." });
     }
     let checkPassword = await bcrypt.compare(req.body.password, user.password);
     if (!checkPassword) {
-      return res.status(400).json({ user ,message:"password is not match..." });
+      return res.status(400).json({ user:{} ,message:"password is not match..." });
     }
     let payload = {
       userId: user._id,
