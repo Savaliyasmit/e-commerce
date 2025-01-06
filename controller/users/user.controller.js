@@ -14,7 +14,7 @@ exports.signupUser = async (req, res) => {
     }
      let filePath;
     if (req.file) {
-      filePath = `${req.file.path.replace(/\\/g, "/")}`;
+      filePath = `https://funiture-app.onrender.com/${req.file.path.replace(/\\/g, "/")}`;
     }
     if (!filePath) {
       return res.status(401).json({ message: "Profile image is required." });
