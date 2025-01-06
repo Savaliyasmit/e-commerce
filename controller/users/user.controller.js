@@ -10,17 +10,17 @@ exports.signupUser = async (req, res) => {
   try {
     let user = await userService.getUser({ email: req.body.email, isDelete: false });
     if (user) {
-      return res.status(400).json({ user ,message: "user already exists..." });
+      return res.status(400).json({ message: "user already exists..." });
     }
      let filePath;
     if (req.file) {
       filePath = `${req.file.path.replace(/\\/g, "/")}`;
     }
     if (!filePath) {
-      return res.status(401).json({ user , message: "Profile image is required." });
+      return res.status(401).json({ message: "Profile image is required." });
     }
-
-    let hashPassword = await bcrypt.hash(req.body.password, 10);
+    let salt = 10
+    let hashPassword = await bcrypt.hash(req.body.password, salt);
     user = await userService.addUser({
       ...req.body,
       profileImage: filePath,
