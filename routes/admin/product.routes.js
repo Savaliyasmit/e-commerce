@@ -8,6 +8,6 @@ ProductRoutes.post('/add-product',verifytoken,upload.single('productImage'),addP
 ProductRoutes.get('/get-product/:id',verifytoken,getSpacificProduct)
 ProductRoutes.patch('/update-product/:id',verifytoken,updateProduct);
 ProductRoutes.delete('/remove-product/:id',verifytoken,deleteProduct)
-ProductRoutes.get('/products',verifytoken,getAllProduct)
+ProductRoutes.get('/products',getAllProduct)
 
 module.exports = ProductRoutes
