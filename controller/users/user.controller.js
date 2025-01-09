@@ -94,7 +94,7 @@ exports.updateProfile = async (req, res) => {
    if(!userUpdate){
     return res.status(404).json({ message: "user not found..." });
    }
-    res.json({user: userUpdate,massage: "your profile update sucessfully..."});
+    res.json({ message: "your profile update sucessfully..."});
   } catch (error) {
     console.log(error);
     res.status(500).json("Internal Server Error..");
