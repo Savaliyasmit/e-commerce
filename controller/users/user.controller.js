@@ -87,7 +87,7 @@ exports.updateProfile = async (req, res) => {
   try {
     let filePath;
     if (req.file) {
-      filePath = `${req.file.path.replace(/\\/g, "/")}`;
+      filePath = `https://funiture-app.onrender.com/${req.file.path.replace(/\\/g, "/")}`;
     }
     let userUpdate = await userService.userUpdate({_id:req.user._id,isDelete: false},
       {profileImage:filePath,...req.body})
